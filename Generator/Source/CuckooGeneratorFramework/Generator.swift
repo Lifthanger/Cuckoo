@@ -80,8 +80,18 @@ public struct Generator {
         guard parameters.isEmpty == false else { return "let matchers: [Cuckoo.ParameterMatcher<Void>] = []" }
 
         let tupleType = parameters.map { $0.typeWithoutAttributes }.joined(separator: ", ")
-        let matchers = parameters.enumerated().map { "wrap(matchable: \($1.name)) { $0\(parameters.count > 1 ? ".\($0)" : "") }" }.joined(separator: ", ")
+        let matchers = getMatchers(for: parameters, and: tupleType)
         return "let matchers: [Cuckoo.ParameterMatcher<(\(genericSafeType(from: tupleType)))>] = [\(matchers)]"
+    }
+    
+    private func getMatchers(for parameters: [MethodParameter], and tupleType: String) -> String {
+        if parameters.count == 1 {
+            if let parameter = parameters.first {
+                return "wrap(matchable: \(parameter.name)) { (x: (\(tupleType))) in x }"
+            }
+        }
+        
+        return parameters.enumerated().map { "wrap(matchable: \($1.name)) { $0.\($0) }" }.joined(separator: ", ")
     }
 
     private func genericSafeType(from type: String) -> String {
