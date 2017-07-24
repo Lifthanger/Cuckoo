@@ -84,6 +84,8 @@ public extension Method {
             }
         }
 
+        
+        
         return [
             "name": rawName,
             "accessibility": accessibility.sourceName,
@@ -96,10 +98,20 @@ public extension Method {
             "fullyQualifiedName": fullyQualifiedName,
             "call": call,
             "parameterSignature": parameters.map { "\($0.labelAndName): \($0.type)" }.joined(separator: ", "),
-            "parameterSignatureWithoutNames": parameters.map { "\($0.name): \($0.type)" }.joined(separator: ", "),
+            "parameterSignatureWithoutNames": parameters.map { "\($0.name): \($0.type)" }.joined(separator: ", ").defaultIfEmpty(usingDefault: "_"),
             "stubFunction": stubFunction,
             "inputTypes": parameters.map { $0.typeWithoutAttributes }.joined(separator: ", "),
             "isOptional": isOptional
         ]
+    }
+}
+
+extension String {
+    func defaultIfEmpty(usingDefault: String) -> String {
+        if characters.count == 0 {
+            return usingDefault
+        }
+        
+        return self
     }
 }

@@ -87,7 +87,7 @@ public struct Generator {
     private func getMatchers(for parameters: [MethodParameter], and tupleType: String) -> String {
         if parameters.count == 1 {
             if let parameter = parameters.first {
-                return "wrap(matchable: \(parameter.name)) { (x: (\(tupleType))) in x }"
+                return "wrap(matchable: \(parameter.name)) { (x: (\(tupleType))) in x }" 
             }
         }
         
