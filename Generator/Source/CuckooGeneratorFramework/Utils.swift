@@ -27,7 +27,7 @@ extension String {
 extension String.UTF8View {
     subscript(range: Range<Int>) -> String {
         let stringRange = index(startIndex, offsetBy: range.lowerBound)..<index(startIndex, offsetBy: range.upperBound)
-        let selected: String.UTF8View = self[stringRange]
+        let selected = self[stringRange]
         return String(selected) ?? ""
     }
 }
