@@ -9,9 +9,9 @@ superclean:
 	rm -rf .build
 
 build:
-	swift build
+	swift build -Xswiftc -swift-version -Xswiftc 3
 	.build/debug/TemplateEncoder > Source/CuckooGeneratorFramework/Templates.swift
-	swift build
+	swift build -Xswiftc -swift-version -Xswiftc 3
 
 test: build
 	#cd Tests && cucumber
