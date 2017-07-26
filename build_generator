@@ -2,5 +2,5 @@
 
 pushd Generator
 rm -rf .build
-env -i PATH="$PATH" HOME="$HOME" swift build
+env -i PATH="$PATH" HOME="$HOME" make
 popd
